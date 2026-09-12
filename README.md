@@ -1,7 +1,5 @@
-<<<<<<< HEAD
+
 # AuditFlow-front-end
-=======
-# AuditFlow
 
 ![AuditFlow Screenshot](PLACEHOLDER_SCREENSHOT_OR_LOGO_LINK)
 
@@ -71,4 +69,4 @@ AuditFlow is a full-stack MERN application that helps companies manage internal 
 ## Attributions
 
 - PLACEHOLDER_ATTRIBUTION_LINK_OR_NONE
->>>>>>> JWT-REACT-TEMPLATE-SETUP
+
