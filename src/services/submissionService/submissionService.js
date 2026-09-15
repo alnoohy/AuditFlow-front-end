@@ -17,3 +17,21 @@ const create = async (requsetId, submissionData) => {
     console.log(err);
   }
 };
+
+const update = async (requsetId, submissionId, updateFormData) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/${requsetId}/submissions/${submissionId}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updateFormData),
+      },
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
