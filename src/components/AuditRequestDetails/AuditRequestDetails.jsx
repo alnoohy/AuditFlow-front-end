@@ -1,22 +1,44 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
+
 import * as auditRequestService from '../../services/auditRequestService';
+import * as departmentService from '../../services/departmentService';
+
 import '../AuditRequests.css';
 
-const AuditRequestDetails = ({ previewRequest }) => {
+const AuditRequestDetails = () => {
   const { requestId } = useParams();
 
-  const [auditRequest, setAuditRequest] = useState(previewRequest || null);
+  const [auditRequest, setAuditRequest] = useState(null);
+  const [departmentName, setDepartmentName] = useState('');
+
   useEffect(() => {
-    if (previewRequest) return;
-  
     const fetchAuditRequest = async () => {
-      const requestData = await auditRequestService.show(requestId);
-      setAuditRequest(requestData);
+      try {
+        const requestData = await auditRequestService.show(requestId);
+
+        setAuditRequest(requestData);
+
+        const departmentData = await departmentService.index();
+
+        const departmentId =
+          requestData.department?._id ||
+          requestData.department;
+
+        const selectedDepartment = departmentData.find(
+          (department) => department._id === departmentId
+        );
+
+        if (selectedDepartment) {
+          setDepartmentName(selectedDepartment.name);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     };
-  
+
     fetchAuditRequest();
-  }, [requestId, previewRequest]);
+  }, [requestId]);
 
   if (!auditRequest) {
     return <p>Loading...</p>;
@@ -27,6 +49,7 @@ const AuditRequestDetails = ({ previewRequest }) => {
       <div className="details-header">
         <div>
           <h1>{auditRequest.title}</h1>
+
           <span className="status-badge">
             {auditRequest.status}
           </span>
@@ -48,12 +71,13 @@ const AuditRequestDetails = ({ previewRequest }) => {
         <p>{auditRequest.description}</p>
 
         <p>
-          <strong>Priority:</strong> {auditRequest.priority}
+          <strong>Priority:</strong>{' '}
+          {auditRequest.priority}
         </p>
 
         <p>
           <strong>Department:</strong>{' '}
-          {auditRequest.department?.name || 'Not assigned'}
+          {departmentName || 'Not assigned'}
         </p>
 
         <p>
@@ -69,12 +93,17 @@ const AuditRequestDetails = ({ previewRequest }) => {
         <p>
           <strong>Deadline:</strong>{' '}
           {auditRequest.deadline
-            ? new Date(auditRequest.deadline).toLocaleDateString()
+            ? new Date(
+                auditRequest.deadline
+              ).toLocaleDateString()
             : 'No deadline'}
         </p>
       </div>
 
-      <Link to="/audit-requests" className="back-btn">
+      <Link
+        to="/audit-requests"
+        className="back-btn"
+      >
         Back to Audit Requests
       </Link>
     </main>

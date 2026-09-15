@@ -1,29 +1,49 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
+
 import * as auditRequestService from '../../services/auditRequestService';
+import * as departmentService from '../../services/departmentService';
 
 const EditAuditRequest = () => {
   const { requestId } = useParams();
   const navigate = useNavigate();
+
+  const [departments, setDepartments] = useState([]);
 
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     priority: 'medium',
     status: 'pending',
+    department: '',
+    assignedTo: '',
     deadline: '',
   });
 
   useEffect(() => {
-    const fetchRequest = async () => {
+    const fetchData = async () => {
       try {
         const requestData = await auditRequestService.show(requestId);
+        const departmentData = await departmentService.index();
+
+        setDepartments(departmentData);
 
         setFormData({
           title: requestData.title || '',
           description: requestData.description || '',
           priority: requestData.priority || 'medium',
           status: requestData.status || 'pending',
+
+          department:
+            requestData.department?._id ||
+            requestData.department ||
+            '',
+
+          assignedTo:
+            requestData.assignedTo?._id ||
+            requestData.assignedTo ||
+            '',
+
           deadline: requestData.deadline
             ? requestData.deadline.split('T')[0]
             : '',
@@ -33,7 +53,7 @@ const EditAuditRequest = () => {
       }
     };
 
-    fetchRequest();
+    fetchData();
   }, [requestId]);
 
   const handleChange = (event) => {
@@ -48,6 +68,7 @@ const EditAuditRequest = () => {
 
     try {
       await auditRequestService.update(requestId, formData);
+
       navigate(`/audit-requests/${requestId}`);
     } catch (error) {
       console.log(error);
@@ -63,6 +84,7 @@ const EditAuditRequest = () => {
 
     try {
       await auditRequestService.deleteRequest(requestId);
+
       navigate('/audit-requests');
     } catch (error) {
       console.log(error);
@@ -76,6 +98,7 @@ const EditAuditRequest = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title">Title</label>
+
           <input
             type="text"
             id="title"
@@ -88,6 +111,7 @@ const EditAuditRequest = () => {
 
         <div>
           <label htmlFor="description">Description</label>
+
           <textarea
             id="description"
             name="description"
@@ -99,6 +123,7 @@ const EditAuditRequest = () => {
 
         <div>
           <label htmlFor="priority">Priority</label>
+
           <select
             id="priority"
             name="priority"
@@ -112,29 +137,84 @@ const EditAuditRequest = () => {
         </div>
 
         <div>
+          <label htmlFor="department">Department</label>
+
+          <select
+            id="department"
+            name="department"
+            value={formData.department}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Department</option>
+
+            {departments.map((department) => (
+              <option
+                key={department._id}
+                value={department._id}
+              >
+                {department.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="assignedTo">
+            Assigned Employee ID
+          </label>
+
+          <input
+            type="text"
+            id="assignedTo"
+            name="assignedTo"
+            value={formData.assignedTo}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div>
           <label htmlFor="status">Status</label>
+
           <select
             id="status"
             name="status"
             value={formData.status}
             onChange={handleChange}
           >
-            <option value="pending">Pending</option>
-            <option value="under review">Under Review</option>
-            <option value="approved">Approved</option>
-            <option value="rejected">Rejected</option>
-            <option value="completed">Completed</option>
+            <option value="pending">
+              Pending
+            </option>
+
+            <option value="under review">
+              Under Review
+            </option>
+
+            <option value="completed">
+              Completed
+            </option>
+
+            <option value="rejected">
+              Rejected
+            </option>
+
+            <option value="overdue">
+              Overdue
+            </option>
           </select>
         </div>
 
         <div>
           <label htmlFor="deadline">Deadline</label>
+
           <input
             type="date"
             id="deadline"
             name="deadline"
             value={formData.deadline}
             onChange={handleChange}
+            required
           />
         </div>
 

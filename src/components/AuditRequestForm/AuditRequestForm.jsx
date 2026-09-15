@@ -1,18 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+
 import * as auditRequestService from '../../services/auditRequestService';
+import * as departmentService from '../../services/departmentService';
+
 import '../AuditRequests.css';
 
 const AuditRequestForm = () => {
   const navigate = useNavigate();
+
+  const [departments, setDepartments] = useState([]);
 
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     priority: 'medium',
     department: '',
+    assignedTo: '',
     deadline: '',
   });
+
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const departmentData = await departmentService.index();
+        setDepartments(departmentData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchDepartments();
+  }, []);
 
   const handleChange = (event) => {
     setFormData({
@@ -35,14 +54,11 @@ const AuditRequestForm = () => {
 
   return (
     <main className="audit-request-form-page">
-      <div className="form-header">
-        <h1>Create Audit Request</h1>
-        <p>Add the information needed for the new audit request.</p>
-      </div>
+      <h1>Create Audit Request</h1>
 
-      <form className="audit-request-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="title">Title</label>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="title">Title:</label>
 
           <input
             type="text"
@@ -54,21 +70,20 @@ const AuditRequestForm = () => {
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="description">Description</label>
+        <div>
+          <label htmlFor="description">Description:</label>
 
           <textarea
             id="description"
             name="description"
             value={formData.description}
             onChange={handleChange}
-            rows="5"
             required
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="priority">Priority</label>
+        <div>
+          <label htmlFor="priority">Priority:</label>
 
           <select
             id="priority"
@@ -82,22 +97,44 @@ const AuditRequestForm = () => {
           </select>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="department">Department</label>
+        <div>
+          <label htmlFor="department">Department:</label>
 
-          <input
-            type="text"
+          <select
             id="department"
             name="department"
             value={formData.department}
             onChange={handleChange}
-            placeholder="Department"
+            required
+          >
+            <option value="">Select Department</option>
+
+            {departments.map((department) => (
+              <option
+                key={department._id}
+                value={department._id}
+              >
+                {department.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="assignedTo">Assigned Employee ID:</label>
+
+          <input
+            type="text"
+            id="assignedTo"
+            name="assignedTo"
+            value={formData.assignedTo}
+            onChange={handleChange}
             required
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="deadline">Deadline</label>
+        <div>
+          <label htmlFor="deadline">Deadline:</label>
 
           <input
             type="date"
@@ -109,14 +146,13 @@ const AuditRequestForm = () => {
           />
         </div>
 
-        <div className="form-actions">
-          <button type="submit" className="submit-request-btn">
+        <div>
+          <button type="submit">
             Create Request
           </button>
 
           <button
             type="button"
-            className="cancel-request-btn"
             onClick={() => navigate('/audit-requests')}
           >
             Cancel
