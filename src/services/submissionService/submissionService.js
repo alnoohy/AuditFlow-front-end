@@ -31,7 +31,27 @@ const update = async (requsetId, submissionId, updateFormData) => {
         body: JSON.stringify(updateFormData),
       },
     );
+    return response.json();
   } catch (err) {
     console.log(err);
   }
 };
+
+const deleteSubmission = async (requestId, submissionId) => {
+  try {
+    const res = await fetch(
+      `${BASE_URL}/${requestId}/submissions/${submissionId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      },
+    );
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { create, update, deleteSubmission as delete };
