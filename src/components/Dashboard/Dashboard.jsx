@@ -1,25 +1,11 @@
 // src/components/Dashboard/Dashboard.jsx
 
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 import { UserContext } from '../../contexts/UserContext';
-import { currentUser } from '../../services/userService';
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
-
-  useEffect(()=> {
-    async function getCurrentUser(){
-      try {
-        const signedInUser = await currentUser()
-        console.log(signedInUser)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
-    getCurrentUser()
-  }, [user])
 
   return (
     <main>
