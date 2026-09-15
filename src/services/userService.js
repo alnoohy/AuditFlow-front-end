@@ -1,30 +1,120 @@
-// THIS IS A DEMO OF AN AUTHENTICATED FETCH REQUEST
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/users`;
 
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/protected`;
-
-const currentUser = async () => {
+const index = async () => {
   try {
-    const config = {
+    const res = await fetch(BASE_URL, {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      }
-    }
-    const res = await fetch(BASE_URL, config);
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
 
     const data = await res.json();
 
-    if (data.err) {
+    if (!res.ok) {
       throw new Error(data.err);
     }
 
-    return data
+    return data;
   } catch (err) {
     console.log(err);
-    throw new Error(err);
+    throw err;
   }
 };
 
+const show = async (userId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.err);
+    }
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+
+const create = async (formData) => {
+  try {
+    const res = await fetch(BASE_URL, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.err);
+    }
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+
+const update = async (userId, formData) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${userId}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.err);
+    }
+
+    return data;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+
+const deleteUser = async (userId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${userId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+
+    if (!res.ok) {
+      const data = await res.json();
+      throw new Error(data.err);
+    }
+
+    return true;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
 
 export {
-  currentUser,
+  index,
+  show,
+  create,
+  update,
+  deleteUser,
 };
