@@ -20,6 +20,15 @@ const NavBar = () => {
           <>
             <li>Hello {user.username}</li>
             <li><Link to="/">Dashboard</Link></li>
+
+            {user.role === 'admin' && (
+              <>
+                <li><Link to="/admin/users">Manage Users</Link></li>
+                <li><Link to="/admin/departments">Manage Departments</Link></li>
+              </>
+            )}
+
+
             <li><Link to="/" onClick={handleSignOut}>Sign Out</Link></li>
           </>
           :
