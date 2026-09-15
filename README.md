@@ -48,15 +48,15 @@ AuditFlow is a full-stack MERN application that helps companies manage internal 
 
 ## Front-End Routes
 
-![alt text](image.png)
+![alt text](./src/assets/image.png)
 
 ## Back-End Routes
 
-![alt text](image-1.png)
+![alt text](./src/assets/image-1.png)
 
 ## Component Diagram
 
-![alt text](image-3.png)
+![alt text](./src/assets/image-3.png)
 
 ## Next Steps (Future Enhancements)
 
