@@ -13,6 +13,10 @@ import AuditRequestDetails from './components/AuditRequestDetails/AuditRequestDe
 import AuditRequestForm from './components/AuditRequestForm/AuditRequestForm';
 import EditAuditRequest from './components/EditAuditRequest/EditAuditRequest';
 
+
+import ManageUsers from './components/ManageUsers/ManageUsers';
+import ManageDepartments from './components/ManageDepartments/ManageDepartments';
+
 // Services
 import * as auditRequestService from './services/auditRequestService';
 
@@ -100,6 +104,20 @@ const App = () => {
               : <Dashboard />
           }
         />
+        <Route
+         path="/admin/users"
+         element={
+           user?.role === 'admin'
+           ? <ManageUsers /> 
+           : <Dashboard />}
+           />
+        <Route
+         path="/admin/departments"
+         element={
+          user?.role === 'admin' 
+          ? <ManageDepartments /> 
+          : <Dashboard />}
+           />
       </Routes>
     </>
   );
