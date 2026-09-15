@@ -10,6 +10,7 @@ import Landing from './components/Landing/Landing';
 import AuditRequestList from './components/AuditRequestList/AuditRequestList';
 import AuditRequestDetails from './components/AuditRequestDetails/AuditRequestDetails';
 import AuditRequestForm from './components/AuditRequestForm/AuditRequestForm';
+import EditAuditRequest from './components/EditAuditRequest/EditAuditRequest';
 
 // Context
 import { UserContext } from './contexts/UserContext';
@@ -64,6 +65,11 @@ const App = () => {
           path="/sign-up"
           element={<SignUpForm />}
         />
+
+        <Route
+          path="/audit-requests/:requestId/edit"
+          element={<EditAuditRequest />}
+         />
 
         <Route
           path="/sign-in"
