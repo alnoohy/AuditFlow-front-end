@@ -1,4 +1,3 @@
-
 # AuditFlow-front-end
 
 ![AuditFlow Screenshot](PLACEHOLDER_SCREENSHOT_OR_LOGO_LINK)
@@ -28,7 +27,7 @@ AuditFlow is a full-stack MERN application that helps companies manage internal 
 
 ## Getting Started
 
-- **Deployed App:** [PLACEHOLDER_DEPLOYED_APP_LINK](PLACEHOLDER_DEPLOYED_APP_LINK)
+- **Deployed App:** [Click Here](https://audit-flow-front-end-lemon.vercel.app/)
 - **Planning Materials:**
   - [Wireframes](https://excalidraw.com/#json=JSGmGi4BfHrTVhP4uofK1,WjoQ5OIN0KvCno4gkYJMHw)
 - **Back-End Repository:** [AuditFlow-back-end](https://github.com/alnoohy/AuditFlow-back-end)
@@ -46,69 +45,73 @@ AuditFlow is a full-stack MERN application that helps companies manage internal 
 - CSS (Flexbox / Grid)
 
 ## ERD
+
 ![alt text](src/assets/ERD.png)
 
 ## Front-End Routes
 
 ![alt text](src/assets/image.png)
+
 # AuditFlow - Front-End Routes
 
-| Route | Page / Description |
-| :--- | :--- |
-| `/` | Landing Page |
-| `/sign-up` | Sign Up |
-| `/sign-in` | Sign In |
-| `/dashboard` | Dashboard |
-| `/audit-requests` | Audit Requests |
-| `/audit-requests/new` | Create Request |
-| `/audit-requests/:requestId` | Request Details |
-| `/audit-requests/:requestId/edit` | Edit Request |
-| `/audit-requests/:requestId/submit` | Submit Evidence |
-| `/admin/users` | Manage Users |
-| `/admin/departments` | Manage Departments |
+| Route                               | Page / Description |
+| :---------------------------------- | :----------------- |
+| `/`                                 | Landing Page       |
+| `/sign-up`                          | Sign Up            |
+| `/sign-in`                          | Sign In            |
+| `/dashboard`                        | Dashboard          |
+| `/audit-requests`                   | Audit Requests     |
+| `/audit-requests/new`               | Create Request     |
+| `/audit-requests/:requestId`        | Request Details    |
+| `/audit-requests/:requestId/edit`   | Edit Request       |
+| `/audit-requests/:requestId/submit` | Submit Evidence    |
+| `/admin/users`                      | Manage Users       |
+| `/admin/departments`                | Manage Departments |
+
 ## Back-End Routes
 
 ![alt text](src/assets/image-1.png)
+
 # AuditFlow - Back-End Routes
 
 ## AUTH
 
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| **POST** | `/auth/sign-up` | Register a new user account. |
+| Method   | Endpoint        | Description                                     |
+| :------- | :-------------- | :---------------------------------------------- |
+| **POST** | `/auth/sign-up` | Register a new user account.                    |
 | **POST** | `/auth/sign-in` | Authenticate an existing user and return a JWT. |
 
 ---
 
 ## AUDIT REQUESTS
 
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| **GET** | `/audit-requests` | Retrieve all audit requests (with search, sort, and role-based filters). |
-| **POST** | `/audit-requests` | Create and assign a new audit request (Auditor/Admin only). |
-| **GET** | `/audit-requests/:requestId` | Retrieve details for a single audit request. |
-| **PUT** | `/audit-requests/:requestId` | Update an existing audit request (Auditor/Admin only). |
-| **DELETE** | `/audit-requests/:requestId` | Delete an audit request (Auditor/Admin only). |
+| Method     | Endpoint                     | Description                                                              |
+| :--------- | :--------------------------- | :----------------------------------------------------------------------- |
+| **GET**    | `/audit-requests`            | Retrieve all audit requests (with search, sort, and role-based filters). |
+| **POST**   | `/audit-requests`            | Create and assign a new audit request (Auditor/Admin only).              |
+| **GET**    | `/audit-requests/:requestId` | Retrieve details for a single audit request.                             |
+| **PUT**    | `/audit-requests/:requestId` | Update an existing audit request (Auditor/Admin only).                   |
+| **DELETE** | `/audit-requests/:requestId` | Delete an audit request (Auditor/Admin only).                            |
 
 ---
 
 ## SUBMISSIONS
 
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| **POST** | `/audit-requests/:requestId/submissions` | Submit evidence, info, or comments for an audit request (Employee/Auditor). |
-| **PUT** | `/audit-requests/:requestId/submissions/:submissionId` | Update a submission or review/update its status (Approve, Reject, Request Changes). |
-| **DELETE** | `/audit-requests/:requestId/submissions/:submissionId` | Delete a specific submission. |
+| Method     | Endpoint                                               | Description                                                                         |
+| :--------- | :----------------------------------------------------- | :---------------------------------------------------------------------------------- |
+| **POST**   | `/audit-requests/:requestId/submissions`               | Submit evidence, info, or comments for an audit request (Employee/Auditor).         |
+| **PUT**    | `/audit-requests/:requestId/submissions/:submissionId` | Update a submission or review/update its status (Approve, Reject, Request Changes). |
+| **DELETE** | `/audit-requests/:requestId/submissions/:submissionId` | Delete a specific submission.                                                       |
 
 ---
 
 ## USERS
 
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| **GET** | `/users` | Retrieve all system users (Admin/Manager only). |
-| **PUT** | `/users/:userId` | Update a user's details, role, or department (Admin only). |
-| **DELETE** | `/users/:userId` | Deactivate or delete a user account (Admin only). |
+| Method     | Endpoint         | Description                                                |
+| :--------- | :--------------- | :--------------------------------------------------------- |
+| **GET**    | `/users`         | Retrieve all system users (Admin/Manager only).            |
+| **PUT**    | `/users/:userId` | Update a user's details, role, or department (Admin only). |
+| **DELETE** | `/users/:userId` | Deactivate or delete a user account (Admin only).          |
 
 ## Component Diagram
 
@@ -125,4 +128,3 @@ AuditFlow is a full-stack MERN application that helps companies manage internal 
 ## Attributions
 
 - PLACEHOLDER_ATTRIBUTION_LINK_OR_NONE
-
