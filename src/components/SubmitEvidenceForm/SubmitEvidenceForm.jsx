@@ -8,11 +8,14 @@ const SubmitEvidenceForm = () => {
 
   const [formData, setFormData] = useState({
     comments: "",
-    evidenceUrl: "",
+    evidenceUrl: null,
   });
 
   const handleChange = (evt) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value });
+  };
+  const handleFileChange = (evt) => {
+    setFormData({ ...formData, evidenceFile: evt.target.files[0] });
   };
 
   const handleSubmit = async (evt) => {
@@ -28,14 +31,13 @@ const SubmitEvidenceForm = () => {
   return (
     <main className="submit-evidence-container">
       <h2>Submit Evidence</h2>
-      <p>Add your evidence and comments for this request</p>
+      <p>Upload your file and add comments for this request</p>
 
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="comments-input">Comments</label>
           <textarea
             required
-            type="text"
             name="comments"
             id="comments-input"
             value={formData.comments}
@@ -45,16 +47,15 @@ const SubmitEvidenceForm = () => {
         </div>
 
         <div>
-          <label htmlFor="evidenceUrl-input">Upload Evidence (Link)</label>
+          <label htmlFor="file-input">Upload Evidence</label>
           <input
             required
-            type="url"
-            name="evidenceUrl"
-            id="evidenceUrl-input"
-            value={formData.evidenceUrl}
-            onChange={handleChange}
-            placeholder="Paste evidence URL (PDF, DOCX, etc.)"
+            type="file"
+            accept=".pdf, .docx, .xlsx, .png, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, image/png"
+            id="file-input"
+            onChange={handleFileChange} // Now this function exists!
           />
+          <small>PDF, DOCX, XLSX, PNG</small>
         </div>
 
         <div className="button-group">
