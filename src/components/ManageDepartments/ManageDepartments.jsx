@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 
 import * as departmentService from '../../services/departmentService';
 
+import '../AdminPages.css';
+
 const ManageDepartments = () => {
   const [departments, setDepartments] = useState([]);
 
