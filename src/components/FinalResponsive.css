@@ -3,11 +3,11 @@
     margin: 0 auto;
     padding: 44px 0 70px;
   }
-  
+
   .dashboard-header {
     margin-bottom: 28px;
   }
-  
+
   .dashboard-header h1 {
     margin: 0 0 8px;
     color: #142b3d;
@@ -15,13 +15,13 @@
     font-weight: 700;
     letter-spacing: -0.5px;
   }
-  
+
   .dashboard-header p {
     margin: 0;
     color: #69798a;
     font-size: 14px;
   }
-  
+
   .dashboard-role {
     display: inline-flex;
     align-items: center;
@@ -34,14 +34,14 @@
     font-weight: 700;
     text-transform: capitalize;
   }
-  
+
   .dashboard-cards {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 16px;
     margin-bottom: 28px;
   }
-  
+
   .dashboard-card {
     min-width: 0;
     padding: 21px;
@@ -50,18 +50,18 @@
     background-color: #ffffff;
     box-shadow: 0 3px 12px rgba(18, 44, 66, 0.05);
   }
-  
+
   .dashboard-card h2,
   .dashboard-card h3 {
     margin-top: 0;
     color: #1d3548;
   }
-  
+
   .dashboard-card p {
     color: #69798a;
     line-height: 1.55;
   }
-  
+
   .dashboard-section {
     margin-top: 25px;
     padding: 24px;
@@ -70,19 +70,19 @@
     background-color: #ffffff;
     box-shadow: 0 3px 12px rgba(18, 44, 66, 0.04);
   }
-  
+
   .dashboard-section h2 {
     margin: 0 0 16px;
     color: #1d3548;
     font-size: 19px;
   }
-  
+
   .dashboard-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
   }
-  
+
   .dashboard-action {
     display: inline-flex;
     align-items: center;
@@ -100,227 +100,227 @@
       background-color 0.2s ease,
       border-color 0.2s ease;
   }
-  
+
   .dashboard-action:hover {
     background-color: #123f65;
     border-color: #123f65;
   }
-  
+
   .manage-users-page,
   .manage-departments-page {
     overflow-x: hidden;
   }
-  
+
   .manage-users-table,
   .manage-departments-table {
     table-layout: auto;
   }
-  
+
   .manage-users-table td:last-child,
   .manage-departments-table td:last-child {
     white-space: nowrap;
   }
-  
+
   .trace-workspace {
     overflow-x: hidden;
   }
-  
+
   .trace-title-row {
     flex-wrap: wrap;
   }
-  
+
   .trace-meta {
     line-height: 1.5;
   }
-  
+
   .document-canvas {
     max-width: 100%;
   }
-  
+
   .document-paper {
     max-width: 100%;
   }
-  
+
   .workspace-actions {
     flex-wrap: wrap;
   }
-  
+
   .navbar-container {
     width: min(1240px, calc(100% - 40px));
     margin: 0 auto;
   }
-  
+
   .navbar-links,
   .navbar-public-links {
     flex-wrap: wrap;
   }
-  
+
   @media (max-width: 1100px) {
     .dashboard-cards {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
-  
+
   @media (max-width: 900px) {
     .navbar-container {
       width: calc(100% - 28px);
     }
-  
+
     .manage-users-page,
     .manage-departments-page {
       overflow-x: auto;
     }
-  
+
     .manage-users-table,
     .manage-departments-table {
       min-width: 760px;
     }
-  
+
     .trace-title-row {
       align-items: flex-start;
     }
   }
-  
+
   @media (max-width: 768px) {
     .dashboard {
       width: calc(100% - 28px);
       padding: 32px 0 50px;
     }
-  
+
     .dashboard-header h1 {
       font-size: 27px;
     }
-  
+
     .dashboard-cards {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
     }
-  
+
     .dashboard-card {
       padding: 17px;
     }
-  
+
     .dashboard-section {
       padding: 19px;
     }
-  
+
     .trace-header {
       gap: 12px;
     }
-  
+
     .trace-title-row h1 {
       font-size: 24px;
     }
-  
+
     .trace-details-btn {
       margin-top: 0;
     }
-  
+
     .document-paper {
       width: 95%;
       padding: 20px;
     }
-  
+
     .workspace-actions button {
       flex: 1;
       justify-content: center;
     }
   }
-  
+
   @media (max-width: 560px) {
     .dashboard {
       width: calc(100% - 20px);
     }
-  
+
     .dashboard-cards {
       grid-template-columns: 1fr;
     }
-  
+
     .dashboard-actions {
       flex-direction: column;
     }
-  
+
     .dashboard-action {
       width: 100%;
     }
-  
+
     .manage-users-page,
     .manage-departments-page {
       width: calc(100% - 20px);
     }
-  
+
     .manage-page-header {
       flex-direction: column;
       align-items: stretch;
     }
-  
+
     .manage-page-header > button {
       width: 100%;
     }
-  
+
     .navbar-container {
       width: calc(100% - 20px);
     }
-  
+
     .navbar-brand-text {
       display: none;
     }
-  
+
     .navbar-user-info {
       display: none;
     }
-  
+
     .navbar-links {
       padding-bottom: 2px;
     }
-  
+
     .trace-workspace {
       padding-left: 10px;
       padding-right: 10px;
     }
-  
+
     .trace-title-row {
       flex-direction: column;
       gap: 7px;
     }
-  
+
     .trace-title-row h1 {
       font-size: 22px;
     }
-  
+
     .trace-meta {
       flex-direction: column;
       gap: 4px;
     }
-  
+
     .document-canvas {
       height: 300px;
       padding: 10px;
     }
-  
+
     .document-paper {
       width: 100%;
       min-height: 260px;
       padding: 16px;
     }
-  
+
     .result-options {
       flex-direction: column;
       gap: 10px;
     }
-  
+
     .variance-input-row {
       grid-template-columns: 1fr;
     }
-  
+
     .variance-input-row input {
       text-align: left;
     }
-  
+
     .workspace-actions {
       flex-direction: column;
     }
-  
+
     .workspace-actions button {
       width: 100%;
     }
