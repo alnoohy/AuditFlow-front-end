@@ -8,10 +8,12 @@ import SignInForm from "./components/SignInForm/SignInForm";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Landing from "./components/Landing/Landing";
 
+
 import AuditRequestList from "./components/AuditRequestList/AuditRequestList";
 import AuditRequestDetails from "./components/AuditRequestDetails/AuditRequestDetails";
 import AuditRequestForm from "./components/AuditRequestForm/AuditRequestForm";
 import EditAuditRequest from "./components/EditAuditRequest/EditAuditRequest";
+import AuditWorkspace from "./components/AuditWorkspace/AuditWorkspace";
 
 import ManageUsers from "./components/ManageUsers/ManageUsers";
 import ManageDepartments from "./components/ManageDepartments/ManageDepartments";
@@ -61,6 +63,12 @@ const App = () => {
 
         <Route path="/sign-in" element={<SignInForm />} />
 
+        <Route
+        path="/audit-requests/:requestId/workspace"
+         element={
+         user?.role === "auditor" ? <AuditWorkspace /> : <Dashboard />
+        }
+         />
         <Route
           path="/audit-requests"
           element={

@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router';
 import * as auditRequestService from '../../services/auditRequestService';
 import * as departmentService from '../../services/departmentService';
 
+import logo from '../../assets/logo-auditflow.png';
+
 import '../AuditRequests.css';
 
 const AuditRequestForm = () => {
@@ -16,7 +18,6 @@ const AuditRequestForm = () => {
     description: '',
     priority: 'medium',
     department: '',
-    assignedTo: '',
     deadline: '',
   });
 
@@ -24,6 +25,7 @@ const AuditRequestForm = () => {
     const fetchDepartments = async () => {
       try {
         const departmentData = await departmentService.index();
+
         setDepartments(departmentData);
       } catch (error) {
         console.log(error);
@@ -53,112 +55,154 @@ const AuditRequestForm = () => {
   };
 
   return (
-    <main className="audit-request-form-page">
-      <h1>Create Audit Request</h1>
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">Title:</label>
-
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-            required
+    <main className="audit-form-page">
+      <section className="audit-form-shell">
+        <div className="audit-form-brand">
+          <img
+            src={logo}
+            alt="AuditFlow logo"
+            className="audit-form-logo"
           />
+
+          <div>
+            <p className="audit-form-eyebrow">
+              AuditFlow
+            </p>
+
+            <h1>
+              Create Audit Request
+            </h1>
+
+            <p className="audit-form-subtitle">
+              Create a new audit request and set the department,
+              priority and required deadline.
+            </p>
+          </div>
         </div>
 
-        <div>
-          <label htmlFor="description">Description:</label>
+        <form
+          className="audit-form-card"
+          onSubmit={handleSubmit}
+        >
+          <div className="audit-form-grid">
+            <div className="form-group full-width">
+              <label htmlFor="title">
+                Request Title
+              </label>
 
-          <textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            required
-          />
-        </div>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                placeholder="Enter audit request title"
+                required
+              />
+            </div>
 
-        <div>
-          <label htmlFor="priority">Priority:</label>
+            <div className="form-group full-width">
+              <label htmlFor="description">
+                Description
+              </label>
 
-          <select
-            id="priority"
-            name="priority"
-            value={formData.priority}
-            onChange={handleChange}
-          >
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-        </div>
+              <textarea
+                id="description"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                rows="5"
+                placeholder="Describe the information or evidence required"
+                required
+              />
+            </div>
 
-        <div>
-          <label htmlFor="department">Department:</label>
+            <div className="form-group">
+              <label htmlFor="priority">
+                Priority
+              </label>
 
-          <select
-            id="department"
-            name="department"
-            value={formData.department}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Department</option>
-
-            {departments.map((department) => (
-              <option
-                key={department._id}
-                value={department._id}
+              <select
+                id="priority"
+                name="priority"
+                value={formData.priority}
+                onChange={handleChange}
               >
-                {department.name}
-              </option>
-            ))}
-          </select>
-        </div>
+                <option value="low">
+                  Low
+                </option>
 
-        <div>
-          <label htmlFor="assignedTo">Assigned Employee ID:</label>
+                <option value="medium">
+                  Medium
+                </option>
 
-          <input
-            type="text"
-            id="assignedTo"
-            name="assignedTo"
-            value={formData.assignedTo}
-            onChange={handleChange}
-            required
-          />
-        </div>
+                <option value="high">
+                  High
+                </option>
+              </select>
+            </div>
 
-        <div>
-          <label htmlFor="deadline">Deadline:</label>
+            <div className="form-group">
+              <label htmlFor="department">
+                Department
+              </label>
 
-          <input
-            type="date"
-            id="deadline"
-            name="deadline"
-            value={formData.deadline}
-            onChange={handleChange}
-            required
-          />
-        </div>
+              <select
+                id="department"
+                name="department"
+                value={formData.department}
+                onChange={handleChange}
+                required
+              >
+                <option value="">
+                  Select Department
+                </option>
 
-        <div>
-          <button type="submit">
-            Create Request
-          </button>
+                {departments.map((department) => (
+                  <option
+                    key={department._id}
+                    value={department._id}
+                  >
+                    {department.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          <button
-            type="button"
-            onClick={() => navigate('/audit-requests')}
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
+            <div className="form-group full-width">
+              <label htmlFor="deadline">
+                Deadline
+              </label>
+
+              <input
+                type="date"
+                id="deadline"
+                name="deadline"
+                value={formData.deadline}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="audit-form-actions">
+            <button
+              type="submit"
+              className="primary-btn"
+            >
+              Create Request
+            </button>
+
+            <button
+              type="button"
+              className="secondary-btn"
+              onClick={() => navigate('/audit-requests')}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </section>
     </main>
   );
 };
