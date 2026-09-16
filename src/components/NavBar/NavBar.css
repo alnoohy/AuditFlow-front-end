@@ -1,0 +1,243 @@
+.main-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    background-color: #ffffff;
+    border-bottom: 1px solid #dde5eb;
+    box-shadow: 0 2px 8px rgba(18, 43, 61, 0.04);
+  }
+  
+  .navbar-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 68px;
+    box-sizing: border-box;
+    padding: 0 32px;
+  }
+  
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 42px;
+    text-decoration: none;
+  }
+  
+  .navbar-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+  }
+  
+  .navbar-brand-text {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .navbar-brand-text strong {
+    color: #15344c;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  
+  .navbar-brand-text span {
+    margin-top: 1px;
+    color: #81909d;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  
+  .navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex: 1;
+  }
+  
+  .navbar-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 38px;
+    padding: 0 12px;
+    color: #5e6f7f;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+  
+  .navbar-link:hover {
+    background-color: #f1f5f8;
+    color: #194e75;
+  }
+  
+  .navbar-link.active {
+    background-color: #eaf2f8;
+    color: #174f78;
+  }
+  
+  .navbar-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+    padding-left: 22px;
+    border-left: 1px solid #e4e9ee;
+  }
+  
+  .navbar-user-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background-color: #173f5f;
+    color: #ffffff;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  
+  .navbar-user-info {
+    display: flex;
+    min-width: 90px;
+    flex-direction: column;
+  }
+  
+  .navbar-user-info strong {
+    color: #263d50;
+    font-size: 11px;
+    font-weight: 650;
+  }
+  
+  .navbar-user-info span {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin-top: 2px;
+    color: #7a8997;
+    font-size: 9px;
+    text-transform: capitalize;
+  }
+  
+  .navbar-signout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    margin-left: 3px;
+    color: #6f7e8d;
+    border-radius: 6px;
+    text-decoration: none;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+  
+  .navbar-signout:hover {
+    background-color: #fff0f0;
+    color: #a34848;
+  }
+  
+  .navbar-public-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+  
+  .navbar-signin,
+  .navbar-signup {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0 15px;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 650;
+  }
+  
+  .navbar-signin {
+    background-color: #ffffff;
+    color: #173f5f;
+    border: 1px solid #cbd6df;
+  }
+  
+  .navbar-signin:hover {
+    background-color: #f4f7f9;
+  }
+  
+  .navbar-signup {
+    background-color: #173f5f;
+    color: #ffffff;
+    border: 1px solid #173f5f;
+  }
+  
+  .navbar-signup:hover {
+    background-color: #102f48;
+  }
+  
+  @media (max-width: 900px) {
+    .navbar-container {
+      padding: 0 18px;
+    }
+  
+    .navbar-brand {
+      margin-right: 20px;
+    }
+  
+    .navbar-brand-text span {
+      display: none;
+    }
+  
+    .navbar-link {
+      padding: 0 9px;
+    }
+  
+    .navbar-user-info {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 700px) {
+    .navbar-container {
+      min-height: auto;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 12px 15px;
+    }
+  
+    .navbar-brand {
+      margin-right: auto;
+    }
+  
+    .navbar-links {
+      order: 3;
+      width: 100%;
+      overflow-x: auto;
+    }
+  
+    .navbar-user {
+      padding-left: 10px;
+    }
+  
+    .navbar-link {
+      white-space: nowrap;
+    }
+  
+    .navbar-public-links {
+      gap: 5px;
+    }
+  }
