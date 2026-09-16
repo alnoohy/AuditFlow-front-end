@@ -44,8 +44,30 @@ const AuditRequestDetails = () => {
     fetchAuditRequest();
   }, [requestId]);
 
+  const getStatusClass = (status) => {
+    return status
+      ?.toLowerCase()
+      .replaceAll(' ', '-');
+  };
+
+  const formatDate = (date) => {
+    if (!date) {
+      return 'No deadline';
+    }
+
+    return new Date(date).toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
+  };
+
   if (!auditRequest) {
-    return <p>Loading...</p>;
+    return (
+      <p className="audit-loading">
+        Loading audit request...
+      </p>
+    );
   }
 
   return (
@@ -53,12 +75,26 @@ const AuditRequestDetails = () => {
 
       <div className="details-header">
 
-        <div>
-          <h1>{auditRequest.title}</h1>
+        <div className="details-title-area">
 
-          <span className="status-badge">
+          <p className="details-eyebrow">
+            Audit Request
+          </p>
+
+          <h1>
+            {auditRequest.title}
+          </h1>
+
+          <span
+            className={`audit-status-pill status-${getStatusClass(
+              auditRequest.status
+            )}`}
+          >
+            <span className="status-dot"></span>
+
             {auditRequest.status}
           </span>
+
         </div>
 
         {user?.role === 'auditor' && (
@@ -75,7 +111,7 @@ const AuditRequestDetails = () => {
               to={`/audit-requests/${auditRequest._id}/edit`}
               className="edit-request-btn"
             >
-              Edit
+              Edit Request
             </Link>
 
           </div>
@@ -83,50 +119,96 @@ const AuditRequestDetails = () => {
 
       </div>
 
-      <div className="details-card">
+      <section className="details-card">
 
-        <p>
-          <strong>Description:</strong>
-        </p>
+        <div className="details-section">
 
-        <p>{auditRequest.description}</p>
+          <p className="details-section-label">
+            Request Description
+          </p>
 
-        <p>
-          <strong>Priority:</strong>{' '}
-          {auditRequest.priority}
-        </p>
+          <p className="details-description">
+            {auditRequest.description ||
+              'No description provided.'}
+          </p>
 
-        <p>
-          <strong>Department:</strong>{' '}
-          {departmentName || 'Not assigned'}
-        </p>
+        </div>
 
-        <p>
-          <strong>Assigned To:</strong>{' '}
-          {auditRequest.assignedTo?.username || 'Not assigned'}
-        </p>
+        <div className="details-grid">
 
-        <p>
-          <strong>Created By:</strong>{' '}
-          {auditRequest.createdBy?.username || 'Unknown'}
-        </p>
+          <div className="detail-item">
+            <span>
+              Priority
+            </span>
 
-        <p>
-          <strong>Deadline:</strong>{' '}
-          {auditRequest.deadline
-            ? new Date(
-                auditRequest.deadline
-              ).toLocaleDateString()
-            : 'No deadline'}
-        </p>
+            <strong
+              className={`priority-pill priority-${auditRequest.priority}`}
+            >
+              {auditRequest.priority}
+            </strong>
+          </div>
 
-      </div>
+          <div className="detail-item">
+            <span>
+              Department
+            </span>
+
+            <strong>
+              {departmentName || 'Not assigned'}
+            </strong>
+          </div>
+
+          <div className="detail-item">
+            <span>
+              Assigned To
+            </span>
+
+            <strong>
+              {auditRequest.assignedTo?.username ||
+                'Not assigned'}
+            </strong>
+          </div>
+
+          <div className="detail-item">
+            <span>
+              Created By
+            </span>
+
+            <strong>
+              {auditRequest.createdBy?.username ||
+                'Unknown'}
+            </strong>
+          </div>
+
+          <div className="detail-item">
+            <span>
+              Deadline
+            </span>
+
+            <strong>
+              {formatDate(auditRequest.deadline)}
+            </strong>
+          </div>
+
+          <div className="detail-item">
+            <span>
+              Status
+            </span>
+
+            <strong className="detail-status-text">
+              {auditRequest.status}
+            </strong>
+          </div>
+
+        </div>
+
+      </section>
 
       <Link
         to="/audit-requests"
         className="back-btn"
       >
-        Back to Audit Requests
+        ← Back to Audit Requests
       </Link>
 
     </main>
