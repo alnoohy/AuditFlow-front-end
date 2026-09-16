@@ -100,8 +100,7 @@ const ManageUsers = () => {
   };
 
   const handleDelete = async (userId) => {
-    const confirmed = window.confirm('Delete this user? This cannot be undone.');
-    if (!confirmed) return;
+  
 
     try {
       await userService.deleteUser(userId);

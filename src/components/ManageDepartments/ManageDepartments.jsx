@@ -76,11 +76,7 @@ const ManageDepartments = () => {
   };
 
   const handleDelete = async (departmentId) => {
-    const confirmed = window.confirm(
-      'Delete this department? Users and requests referencing it will need to be reassigned.'
-    );
-    if (!confirmed) return;
-
+  
     try {
       await departmentService.deleteDepartment(departmentId);
       fetchDepartments();
