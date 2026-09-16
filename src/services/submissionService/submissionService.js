@@ -1,20 +1,22 @@
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/audit-requests`;
 
-const create = async (requsetId, submissionData) => {
+const create = async (requestId, submissionData) => {
   try {
-    const response = await fetch(`${BASE_URL}/${requsetId}/submissions`, {
+    const response = await fetch(`${BASE_URL}/${requestId}/submissions`, {
       method: "POST",
       headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(submissionData),
     });
 
     const data = await response.json();
-    return response.json();
+    if (!response.ok) throw new Error(data.err);
+    return data;
   } catch (err) {
     console.log(err);
+    throw err;
   }
 };
 

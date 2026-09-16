@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router";
 
 const SubmitEvidenceForm = () => {
   const { requestId } = useParams();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     comments: "",
