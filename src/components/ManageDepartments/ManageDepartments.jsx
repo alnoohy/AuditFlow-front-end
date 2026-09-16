@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 
 import * as departmentService from '../../services/departmentService';
 
+import '../AdminPages.css';
+
 const ManageDepartments = () => {
   const [departments, setDepartments] = useState([]);
 
@@ -76,7 +78,7 @@ const ManageDepartments = () => {
   };
 
   const handleDelete = async (departmentId) => {
-  
+   
     try {
       await departmentService.deleteDepartment(departmentId);
       fetchDepartments();

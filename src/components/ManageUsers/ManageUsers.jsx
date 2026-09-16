@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import * as userService from '../../services/userService';
 import * as departmentService from '../../services/departmentService';
 
+import '../AdminPages.css';
+
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
   const [departments, setDepartments] = useState([]);
@@ -100,7 +102,7 @@ const ManageUsers = () => {
   };
 
   const handleDelete = async (userId) => {
-  
+    
 
     try {
       await userService.deleteUser(userId);
