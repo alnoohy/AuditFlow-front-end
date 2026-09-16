@@ -20,11 +20,12 @@ const SubmitEvidenceForm = () => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+    console.log("Submit button clicked! Form data:", formData);
     try {
       await submissionService.create(requestId, formData);
       navigate(`/audit-requests/${requestId}`);
     } catch (err) {
-      console.log(err);
+      console.log("Error during submission:", err);
     }
   };
 
@@ -53,7 +54,7 @@ const SubmitEvidenceForm = () => {
             type="file"
             accept=".pdf, .docx, .xlsx, .png, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, image/png"
             id="file-input"
-            onChange={handleFileChange} // Now this function exists!
+            onChange={handleFileChange}
           />
           <small>PDF, DOCX, XLSX, PNG</small>
         </div>
@@ -62,9 +63,10 @@ const SubmitEvidenceForm = () => {
           <button type="button" onClick={() => navigate(-1)}>
             Cancel
           </button>
-          <Link to={`/audit-requests/${requestId}/submit`}>
-            <button className="submit-btn">Submit Evidence</button>
-          </Link>
+          {/* MAKE SURE type="submit" IS HERE! */}
+          <button type="submit" className="submit-btn">
+            Submit Evidence
+          </button>
         </div>
       </form>
     </main>
