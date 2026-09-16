@@ -1,6 +1,7 @@
 import { useState } from "react";
 import * as submissionService from "../../services/submissionService/submissionService";
 import { useParams, useNavigate, Link } from "react-router";
+import './SubmitEvidenceForm.css';
 
 const SubmitEvidenceForm = () => {
   const { requestId } = useParams();
