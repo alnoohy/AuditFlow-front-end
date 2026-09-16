@@ -1,25 +1,54 @@
-// src/components/Dashboard/Dashboard.jsx
-
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router';
 
 import { UserContext } from '../../contexts/UserContext';
-import { currentUser } from '../../services/userService';
+import * as auditRequestService from '../../services/auditRequestService';
+
+import './Dashboard.css';
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
 
-  useEffect(()=> {
-    async function getCurrentUser(){
-      try {
-        const signedInUser = await currentUser()
-        console.log(signedInUser)
-      } catch (error) {
-        console.log(error)
-      }
-    }
+  const [auditRequests, setAuditRequests] = useState([]);
 
-    getCurrentUser()
-  }, [user])
+  useEffect(() => {
+    const fetchAuditRequests = async () => {
+      try {
+        const requestData = await auditRequestService.index();
+        setAuditRequests(requestData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (user) {
+      fetchAuditRequests();
+    }
+  }, [user]);
+
+  if (!user) {
+    return null;
+  }
+
+  const pendingRequests = auditRequests.filter(
+    (request) => request.status === 'pending'
+  );
+
+  const underReviewRequests = auditRequests.filter(
+    (request) => request.status === 'under review'
+  );
+
+  const completedRequests = auditRequests.filter(
+    (request) => request.status === 'completed'
+  );
+
+  const rejectedRequests = auditRequests.filter(
+    (request) => request.status === 'rejected'
+  );
+
+  const overdueRequests = auditRequests.filter(
+    (request) => request.status === 'overdue'
+  );
 
   return (
     <main className="dashboard">
@@ -28,7 +57,8 @@ const Dashboard = () => {
           <h1>Welcome, {user.username}</h1>
 
           <p>
-            {user.role === 'admin' && 'System overview and audit progress.'}
+            {user.role === 'admin' &&
+              'System overview and audit progress.'}
 
             {user.role === 'auditor' &&
               'Manage audit requests and review audit progress.'}
