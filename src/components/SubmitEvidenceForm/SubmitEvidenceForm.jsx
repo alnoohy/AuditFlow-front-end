@@ -1,6 +1,7 @@
 import { useState } from "react";
 import * as submissionService from "../../services/submissionService/submissionService";
 import { useParams, useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 const SubmitEvidenceForm = () => {
   const { requestId } = useParams();
@@ -62,7 +63,9 @@ const SubmitEvidenceForm = () => {
           <button type="button" onClick={() => navigate(-1)}>
             Cancel
           </button>
-          <button type="submit">Submit Evidence</button>
+          <Link to={`/audit-requests/${requestId}/submit`}>
+            <button className="submit-btn">Submit Evidence</button>
+          </Link>
         </div>
       </form>
     </main>
