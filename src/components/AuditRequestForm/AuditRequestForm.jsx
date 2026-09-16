@@ -12,6 +12,7 @@ const AuditRequestForm = () => {
   const navigate = useNavigate();
 
   const [departments, setDepartments] = useState([]);
+  const [users, setUsers] = useState([]);
 
   const [formData, setFormData] = useState({
     title: "",
