@@ -1,45 +1,48 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
-import * as auditRequestService from '../../services/auditRequestService';
-import * as departmentService from '../../services/departmentService';
+import * as auditRequestService from "../../services/auditRequestService";
+import * as departmentService from "../../services/departmentService";
+import * as userService from "../../services/userService";
+import logo from "../../assets/logo-auditflow.png";
 
-import logo from '../../assets/logo-auditflow.png';
-
-import '../AuditRequests.css';
+import "../AuditRequests.css";
 
 const AuditRequestForm = () => {
   const navigate = useNavigate();
 
   const [departments, setDepartments] = useState([]);
+  const [users, setUsers] = useState([]);
 
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    priority: 'medium',
-    department: '',
-    deadline: '',
+    title: "",
+    description: "",
+    priority: "medium",
+    department: "",
+    deadline: "",
+    assignedTo: "",
   });
 
   useEffect(() => {
-    const fetchDepartments = async () => {
+    const fetchData = async () => {
       try {
-        const departmentData = await departmentService.index();
+        const userData = await userService.index();
+        // Filter users to only show employees
+        const employees = userData.filter((u) => u.role === "employee");
+        setUsers(employees);
 
-        setDepartments(departmentData);
-      } catch (error) {
-        console.log(error);
+        const deptData = await departmentService.index();
+        setDepartments(deptData);
+      } catch (err) {
+        console.log(err);
       }
     };
 
-    fetchDepartments();
+    fetchData();
   }, []);
 
-  const handleChange = (event) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (event) => {
@@ -58,37 +61,24 @@ const AuditRequestForm = () => {
     <main className="audit-form-page">
       <section className="audit-form-shell">
         <div className="audit-form-brand">
-          <img
-            src={logo}
-            alt="AuditFlow logo"
-            className="audit-form-logo"
-          />
+          <img src={logo} alt="AuditFlow logo" className="audit-form-logo" />
 
           <div>
-            <p className="audit-form-eyebrow">
-              AuditFlow
-            </p>
+            <p className="audit-form-eyebrow">AuditFlow</p>
 
-            <h1>
-              Create Audit Request
-            </h1>
+            <h1>Create Audit Request</h1>
 
             <p className="audit-form-subtitle">
-              Create a new audit request and set the department,
-              priority and required deadline.
+              Create a new audit request and set the department, priority and
+              required deadline.
             </p>
           </div>
         </div>
 
-        <form
-          className="audit-form-card"
-          onSubmit={handleSubmit}
-        >
+        <form className="audit-form-card" onSubmit={handleSubmit}>
           <div className="audit-form-grid">
             <div className="form-group full-width">
-              <label htmlFor="title">
-                Request Title
-              </label>
+              <label htmlFor="title">Request Title</label>
 
               <input
                 type="text"
@@ -102,9 +92,7 @@ const AuditRequestForm = () => {
             </div>
 
             <div className="form-group full-width">
-              <label htmlFor="description">
-                Description
-              </label>
+              <label htmlFor="description">Description</label>
 
               <textarea
                 id="description"
@@ -118,9 +106,7 @@ const AuditRequestForm = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="priority">
-                Priority
-              </label>
+              <label htmlFor="priority">Priority</label>
 
               <select
                 id="priority"
@@ -128,24 +114,16 @@ const AuditRequestForm = () => {
                 value={formData.priority}
                 onChange={handleChange}
               >
-                <option value="low">
-                  Low
-                </option>
+                <option value="low">Low</option>
 
-                <option value="medium">
-                  Medium
-                </option>
+                <option value="medium">Medium</option>
 
-                <option value="high">
-                  High
-                </option>
+                <option value="high">High</option>
               </select>
             </div>
 
             <div className="form-group">
-              <label htmlFor="department">
-                Department
-              </label>
+              <label htmlFor="department">Department</label>
 
               <select
                 id="department"
@@ -154,25 +132,36 @@ const AuditRequestForm = () => {
                 onChange={handleChange}
                 required
               >
-                <option value="">
-                  Select Department
-                </option>
+                <option value="">Select Department</option>
+                {departments.map((dept) => (
+                  <option key={dept._id} value={dept._id}>
+                    {dept.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-                {departments.map((department) => (
-                  <option
-                    key={department._id}
-                    value={department._id}
-                  >
-                    {department.name}
+            {/* 2. Added Assigned To Dropdown */}
+            <div className="form-group full-width">
+              <label htmlFor="assignedTo">Assign To Employee</label>
+              <select
+                id="assignedTo"
+                name="assignedTo"
+                value={formData.assignedTo}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select Employee</option>
+                {users.map((user) => (
+                  <option key={user._id} value={user._id}>
+                    {user.username} ({user.email})
                   </option>
                 ))}
               </select>
             </div>
 
             <div className="form-group full-width">
-              <label htmlFor="deadline">
-                Deadline
-              </label>
+              <label htmlFor="deadline">Deadline</label>
 
               <input
                 type="date"
@@ -186,17 +175,14 @@ const AuditRequestForm = () => {
           </div>
 
           <div className="audit-form-actions">
-            <button
-              type="submit"
-              className="primary-btn"
-            >
+            <button type="submit" className="primary-btn">
               Create Request
             </button>
 
             <button
               type="button"
               className="secondary-btn"
-              onClick={() => navigate('/audit-requests')}
+              onClick={() => navigate("/audit-requests")}
             >
               Cancel
             </button>
