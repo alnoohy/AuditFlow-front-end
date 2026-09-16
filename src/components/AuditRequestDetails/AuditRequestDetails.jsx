@@ -1,13 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
 
 import * as auditRequestService from '../../services/auditRequestService';
 import * as departmentService from '../../services/departmentService';
 
+import { UserContext } from '../../contexts/UserContext';
+
 import '../AuditRequests.css';
 
 const AuditRequestDetails = () => {
   const { requestId } = useParams();
+
+  const { user } = useContext(UserContext);
 
   const [auditRequest, setAuditRequest] = useState(null);
   const [departmentName, setDepartmentName] = useState('');
@@ -46,7 +50,9 @@ const AuditRequestDetails = () => {
 
   return (
     <main className="audit-request-details">
+
       <div className="details-header">
+
         <div>
           <h1>{auditRequest.title}</h1>
 
@@ -55,15 +61,30 @@ const AuditRequestDetails = () => {
           </span>
         </div>
 
-        <Link
-          to={`/audit-requests/${auditRequest._id}/edit`}
-          className="edit-request-btn"
-        >
-          Edit
-        </Link>
+        {user?.role === 'auditor' && (
+          <div className="details-actions">
+
+            <Link
+              to={`/audit-requests/${auditRequest._id}/workspace`}
+              className="workspace-request-btn"
+            >
+              Open Audit Workspace
+            </Link>
+
+            <Link
+              to={`/audit-requests/${auditRequest._id}/edit`}
+              className="edit-request-btn"
+            >
+              Edit
+            </Link>
+
+          </div>
+        )}
+
       </div>
 
       <div className="details-card">
+
         <p>
           <strong>Description:</strong>
         </p>
@@ -98,6 +119,7 @@ const AuditRequestDetails = () => {
               ).toLocaleDateString()
             : 'No deadline'}
         </p>
+
       </div>
 
       <Link
@@ -106,6 +128,7 @@ const AuditRequestDetails = () => {
       >
         Back to Audit Requests
       </Link>
+
     </main>
   );
 };
