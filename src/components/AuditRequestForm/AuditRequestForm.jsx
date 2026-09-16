@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
-import * as auditRequestService from '../../services/auditRequestService';
-import * as departmentService from '../../services/departmentService';
+import * as auditRequestService from "../../services/auditRequestService";
+import * as departmentService from "../../services/departmentService";
+import * as userService from "../../services/userService";
+import logo from "../../assets/logo-auditflow.png";
 
-import logo from '../../assets/logo-auditflow.png';
-
-import '../AuditRequests.css';
+import "../AuditRequests.css";
 
 const AuditRequestForm = () => {
   const navigate = useNavigate();
@@ -14,11 +14,11 @@ const AuditRequestForm = () => {
   const [departments, setDepartments] = useState([]);
 
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    priority: 'medium',
-    department: '',
-    deadline: '',
+    title: "",
+    description: "",
+    priority: "medium",
+    department: "",
+    deadline: "",
   });
 
   useEffect(() => {
@@ -58,37 +58,24 @@ const AuditRequestForm = () => {
     <main className="audit-form-page">
       <section className="audit-form-shell">
         <div className="audit-form-brand">
-          <img
-            src={logo}
-            alt="AuditFlow logo"
-            className="audit-form-logo"
-          />
+          <img src={logo} alt="AuditFlow logo" className="audit-form-logo" />
 
           <div>
-            <p className="audit-form-eyebrow">
-              AuditFlow
-            </p>
+            <p className="audit-form-eyebrow">AuditFlow</p>
 
-            <h1>
-              Create Audit Request
-            </h1>
+            <h1>Create Audit Request</h1>
 
             <p className="audit-form-subtitle">
-              Create a new audit request and set the department,
-              priority and required deadline.
+              Create a new audit request and set the department, priority and
+              required deadline.
             </p>
           </div>
         </div>
 
-        <form
-          className="audit-form-card"
-          onSubmit={handleSubmit}
-        >
+        <form className="audit-form-card" onSubmit={handleSubmit}>
           <div className="audit-form-grid">
             <div className="form-group full-width">
-              <label htmlFor="title">
-                Request Title
-              </label>
+              <label htmlFor="title">Request Title</label>
 
               <input
                 type="text"
@@ -102,9 +89,7 @@ const AuditRequestForm = () => {
             </div>
 
             <div className="form-group full-width">
-              <label htmlFor="description">
-                Description
-              </label>
+              <label htmlFor="description">Description</label>
 
               <textarea
                 id="description"
@@ -118,9 +103,7 @@ const AuditRequestForm = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="priority">
-                Priority
-              </label>
+              <label htmlFor="priority">Priority</label>
 
               <select
                 id="priority"
@@ -128,24 +111,16 @@ const AuditRequestForm = () => {
                 value={formData.priority}
                 onChange={handleChange}
               >
-                <option value="low">
-                  Low
-                </option>
+                <option value="low">Low</option>
 
-                <option value="medium">
-                  Medium
-                </option>
+                <option value="medium">Medium</option>
 
-                <option value="high">
-                  High
-                </option>
+                <option value="high">High</option>
               </select>
             </div>
 
             <div className="form-group">
-              <label htmlFor="department">
-                Department
-              </label>
+              <label htmlFor="department">Department</label>
 
               <select
                 id="department"
@@ -154,15 +129,10 @@ const AuditRequestForm = () => {
                 onChange={handleChange}
                 required
               >
-                <option value="">
-                  Select Department
-                </option>
+                <option value="">Select Department</option>
 
                 {departments.map((department) => (
-                  <option
-                    key={department._id}
-                    value={department._id}
-                  >
+                  <option key={department._id} value={department._id}>
                     {department.name}
                   </option>
                 ))}
@@ -170,9 +140,7 @@ const AuditRequestForm = () => {
             </div>
 
             <div className="form-group full-width">
-              <label htmlFor="deadline">
-                Deadline
-              </label>
+              <label htmlFor="deadline">Deadline</label>
 
               <input
                 type="date"
@@ -186,17 +154,14 @@ const AuditRequestForm = () => {
           </div>
 
           <div className="audit-form-actions">
-            <button
-              type="submit"
-              className="primary-btn"
-            >
+            <button type="submit" className="primary-btn">
               Create Request
             </button>
 
             <button
               type="button"
               className="secondary-btn"
-              onClick={() => navigate('/audit-requests')}
+              onClick={() => navigate("/audit-requests")}
             >
               Cancel
             </button>
