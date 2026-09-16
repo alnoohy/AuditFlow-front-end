@@ -1,55 +1,25 @@
-import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router';
+// src/components/Dashboard/Dashboard.jsx
+
+import { useContext, useEffect } from 'react';
 
 import { UserContext } from '../../contexts/UserContext';
-import * as auditRequestService from '../../services/auditRequestService';
-
-import './Dashboard.css';
+import { currentUser } from '../../services/userService';
 
 const Dashboard = () => {
   const { user } = useContext(UserContext);
 
-  const [auditRequests, setAuditRequests] = useState([]);
-
-  useEffect(() => {
-    const fetchAuditRequests = async () => {
+  useEffect(()=> {
+    async function getCurrentUser(){
       try {
-        const requestData = await auditRequestService.index();
-
-        setAuditRequests(requestData);
+        const signedInUser = await currentUser()
+        console.log(signedInUser)
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
-    };
-
-    if (user) {
-      fetchAuditRequests();
     }
-  }, [user]);
 
-  if (!user) {
-    return null;
-  }
-
-  const pendingRequests = auditRequests.filter(
-    (request) => request.status === 'pending'
-  );
-
-  const underReviewRequests = auditRequests.filter(
-    (request) => request.status === 'under review'
-  );
-
-  const completedRequests = auditRequests.filter(
-    (request) => request.status === 'completed'
-  );
-
-  const rejectedRequests = auditRequests.filter(
-    (request) => request.status === 'rejected'
-  );
-
-  const overdueRequests = auditRequests.filter(
-    (request) => request.status === 'overdue'
-  );
+    getCurrentUser()
+  }, [user])
 
   return (
     <main className="dashboard">
