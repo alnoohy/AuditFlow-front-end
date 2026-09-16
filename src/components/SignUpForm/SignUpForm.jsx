@@ -5,8 +5,7 @@ import { signUp } from '../../services/authService';
 import * as departmentService from '../../services/departmentService';
 
 import { UserContext } from '../../contexts/UserContext';
-
-import './SignUpForm.css';
+import '../AuthForms.css';
 
 const SignUpForm = () => {
   const { setUser } = useContext(UserContext);

@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router';
 import { signIn } from '../../services/authService';
 import { UserContext } from '../../contexts/UserContext';
 
-import './SignInForm.css';
+import '../AuthForms.css';
 
 const SignInForm = () => {
   const navigate = useNavigate();
