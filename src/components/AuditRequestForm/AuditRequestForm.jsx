@@ -19,27 +19,29 @@ const AuditRequestForm = () => {
     priority: "medium",
     department: "",
     deadline: "",
+    assignedTo: "",
   });
 
   useEffect(() => {
-    const fetchDepartments = async () => {
+    const fetchData = async () => {
       try {
-        const departmentData = await departmentService.index();
+        const userData = await userService.index();
+        // Filter users to only show employees
+        const employees = userData.filter((u) => u.role === "employee");
+        setUsers(employees);
 
-        setDepartments(departmentData);
-      } catch (error) {
-        console.log(error);
+        const deptData = await departmentService.index();
+        setDepartments(deptData);
+      } catch (err) {
+        console.log(err);
       }
     };
 
-    fetchDepartments();
+    fetchData();
   }, []);
 
-  const handleChange = (event) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (event) => {
@@ -130,10 +132,28 @@ const AuditRequestForm = () => {
                 required
               >
                 <option value="">Select Department</option>
+                {departments.map((dept) => (
+                  <option key={dept._id} value={dept._id}>
+                    {dept.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-                {departments.map((department) => (
-                  <option key={department._id} value={department._id}>
-                    {department.name}
+            {/* 2. Added Assigned To Dropdown */}
+            <div className="form-group full-width">
+              <label htmlFor="assignedTo">Assign To Employee</label>
+              <select
+                id="assignedTo"
+                name="assignedTo"
+                value={formData.assignedTo}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select Employee</option>
+                {users.map((user) => (
+                  <option key={user._id} value={user._id}>
+                    {user.username} ({user.email})
                   </option>
                 ))}
               </select>
