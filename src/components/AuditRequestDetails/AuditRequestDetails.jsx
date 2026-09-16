@@ -209,7 +209,6 @@ const AuditRequestDetails = () => {
                 <strong>Submitted At:</strong>{" "}
                 {new Date(sub.submittedAt).toLocaleDateString()}
               </p>
-
               {sub.evidenceUrl && (
                 <p>
                   <a
